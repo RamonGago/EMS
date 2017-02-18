@@ -14,6 +14,32 @@
 		echo $this->Form->submit('Añadir usuario', array('class' => 'form-submit',  'title' => 'Click para añadir') ); 
 ?>
     </fieldset>
+
+    <!-- <form id="register-form" action="add" method="post" role="form" style="display: none;">
+                                <h2>Registrarse</h2>
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="Nombre de usuario">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="Correo electrónico">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" value="Contraseña" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" value="Confirmar contraseña">
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Registrarse">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+    -->
+
+
 <?php echo $this->Form->end(); ?>
 </div>
 <?php 

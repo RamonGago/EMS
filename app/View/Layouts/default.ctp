@@ -14,7 +14,7 @@ $emsDescription = __d('cake_dev', 'EMS: Erasmus Management System');
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css(array('bootstrap.min.css','bootstrap-theme.css', 'font-awesome.css', 'font-awesome.min.css', 'form-elements.css','ems.css'));
-        echo $this->Html->script(array('jquery.min.js', 'bootstrap.min.js', 'ems.js'));
+        echo $this->Html->script(array('jquery.min', 'bootstrap.min', 'holder.min','ems'));
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');

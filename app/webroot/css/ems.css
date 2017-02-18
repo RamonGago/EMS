@@ -27,7 +27,7 @@ body {
     font-family: 'Roboto', sans-serif;
     font-weight:100;
 }
-
+/*
 body{
     width: 100%;
     background: -webkit-linear-gradient(left, #22d686, #24d3d3, #22d686, #24d3d3);
@@ -61,7 +61,7 @@ body{
     }
 }
 
-
+*/
 .panel {
     border-radius: 5px;
 }
@@ -204,6 +204,8 @@ label {
     color: #2D3B55;
     font-size: 14px;
     height: auto;
+    width: 100px;
+    float: right;
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;

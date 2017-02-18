@@ -1,7 +1,7 @@
 /**
  * Created by Ramón on 17/02/2017.
  */
-
+/*
 $(function() {
     $('#login-form-link').click(function(e) {
         $("#login-form").delay(100).fadeIn(100);
@@ -19,3 +19,4 @@ $(function() {
     });
 
 });
+*/
