@@ -13,8 +13,8 @@ $emsDescription = __d('cake_dev', 'EMS: Erasmus Management System');
 	<?php
 		echo $this->Html->meta('icon');
 
-		echo $this->Html->css(array('bootstrap.min.css','bootstrap-theme.css', 'font-awesome.css', 'font-awesome.min.css', 'form-elements.css','ems.css'));
-        echo $this->Html->script(array('jquery.min', 'bootstrap.min', 'holder.min','ems'));
+		echo $this->Html->css(array('bootstrap.min.css','bootstrap-theme.css', 'font-awesome.css', 'font-awesome.min.css', 'form-elements.css', 'dataTables.bootstrap.css', 'dataTables.responsive.css', 'metisMenu.min.css','ems.css'));
+        echo $this->Html->script(array('jquery.min', 'jquery','jquery.flot','jquery.flot.pie','jquery.flot.resize','jquery.flot.tooltip.min','jquery.min', 'flot.data','excanvas.min','morris','morris.min', 'morris.data','holder.min', 'metisMenu.min', 'dataTables.bootstrap', 'dataTables.bootstrap.min','dataTables.responsive', 'npm', 'raphael.min', 'bootstrap', 'bootstrap.min', 'ems'));
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
