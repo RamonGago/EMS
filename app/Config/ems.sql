@@ -35,7 +35,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
 -- -----------------------------------------------------
 -- Table DESTINATIONS (DESTINOS)
 -- -----------------------------------------------------
@@ -55,18 +54,19 @@ CREATE TABLE IF NOT EXISTS `destinations` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+
 -- -----------------------------------------------------
 -- Table PLACES (PLAZAS)
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `places`;
 
 CREATE TABLE IF NOT EXISTS `places` (
-    `id` INT UNSIGNED AUTO_INCREMENT,
-    `number`INT(2),
-    `user_id` INT UNSIGNED,
-    `destination_id` INT UNSIGNED,
-    PRIMARY KEY (`id`)
+  `id` INT UNSIGNED AUTO_INCREMENT,
+  `user_id` INT UNSIGNED,
+  `destination_id` INT UNSIGNED,
+  PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 -- -----------------------------------------------------
@@ -83,7 +83,6 @@ CREATE TABLE IF NOT EXISTS `learning_agreements` (
     `created` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `modified` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `user_id` INT UNSIGNED,
-    `user_coordinador_id` INT UNSIGNED,
     `place_id` INT  UNSIGNED,
     PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -100,7 +99,6 @@ CREATE TABLE IF NOT EXISTS `extension_requests` (
     `created` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `modified` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `user_id` INT UNSIGNED,
-    `user_coordinador_id` INT UNSIGNED,
     `place_id` INT UNSIGNED,
     PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -117,7 +115,6 @@ CREATE TABLE IF NOT EXISTS `resignations` (
     `created` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `modified` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `user_id` INT UNSIGNED,
-    `user_coordinador_id` INT UNSIGNED,
     `place_id` INT UNSIGNED,
     PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -130,8 +127,8 @@ DROP TABLE IF EXISTS `documents`;
 
 CREATE TABLE IF NOT EXISTS `documents` (
     `id` INT UNSIGNED AUTO_INCREMENT,
-    `type` ENUM ('Aceptación de plaza', 'Contrato financiero', 'Ficha de perceptores', 'Aceptación uso de datos', 'Contrato seguro On Campus', 'Contrato de estudios', 'Modificación dontrato de estudios', 'Certificado de llegada', 'Ampliación de estancia', 'Renuncia de plaza', 'Certificado de fin de estancia') DEFAULT NULL,
-    `description` VARCHAR(128),
+    `type` ENUM ('Aceptación de plaza', 'Contrato financiero', 'Ficha de perceptores', 'Aceptación uso de datos', 'Contrato seguro On Campus', 'Contrato de estudios', 'Modificación contrato de estudios', 'Certificado de llegada', 'Ampliación de estancia', 'Renuncia de plaza', 'Certificado de fin de estancia') DEFAULT NULL,
+    `description` VARCHAR(128) DEFAULT NULL,
     `file` VARCHAR(255) DEFAULT NULL,
     `file_dir` VARCHAR(255) DEFAULT NULL,
     `created` DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -166,26 +163,6 @@ CREATE TABLE IF NOT EXISTS `periods` (
     `created` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `modified` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `document_id` INT UNSIGNED DEFAULT NULL,
-    `request_id` INT UNSIGNED DEFAULT NULL,
-    PRIMARY KEY (`id`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
--- -----------------------------------------------------
--- Table REQUESTS (SOLICITUDES): Cuando el usuario solicita
--- una plaza el admin_sec (Arturo) cubre los datos restantes
--- de dicha plaza, nota media, nivel idioma acreditado, etc
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `requests`;
-
-CREATE TABLE IF NOT EXISTS `requests` (
-    `id` INT UNSIGNED AUTO_INCREMENT,
-    `name` VARCHAR(128),
-    `description` VARCHAR(128),
-    `created` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `modified` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `user_id` INT UNSIGNED,
-    `place_id` INT UNSIGNED,
     PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -207,13 +184,8 @@ REFERENCES destinations (id)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
-/* TABLE LEARNING_AGREEMENTS*/
 
--- HAY QUE AÑADIR EL USER_ID DEL COORDINADOR --
-/*ADD FOREIGN KEY (user_coordinador_id)
-REFERENCES users (id)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE,*/
+/* TABLE LEARNING_AGREEMENTS*/
 
 ALTER TABLE learning_agreements
     ADD FOREIGN KEY (user_id)
@@ -224,6 +196,7 @@ REFERENCES users (id)
 REFERENCES places (id)
     ON DELETE CASCADE
     ON UPDATE CASCADE;
+
 
 /* TABLE EXTENSION_REQUESTS*/
 
@@ -266,24 +239,8 @@ ALTER TABLE periods
    ADD FOREIGN KEY (document_id)
 REFERENCES documents (id)
   ON DELETE CASCADE
-  ON UPDATE CASCADE,
-  ADD FOREIGN KEY (request_id)
-REFERENCES requests (id)
-  ON DELETE CASCADE
   ON UPDATE CASCADE;
 
-
-/* TABLE REQUESTS*/
-
-ALTER TABLE requests
-  ADD FOREIGN KEY (user_id)
-REFERENCES users (id)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE,
-  ADD FOREIGN KEY (place_id)
-REFERENCES places (id)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
 
 -- -----------------------------------------------------
 -- INSERTS `USERS`
@@ -324,26 +281,26 @@ INSERT INTO `places` (`id`, `user_id`, `destination_id`) VALUES
 -- INSERTS `LEARNING_AGREEMENTS`
 -- -----------------------------------------------------
 
-INSERT INTO `learning_agreements` (`id`, `destination_subjects`, `origin_subjects`, `duration`, `contact_person`, `created`, `modified`,`user_id`, `user_coordinador_id`, `place_id`) VALUES
-  ('1', 'A01, A08, A12, A17, A18', 'G150501, G150502, G150503, G150504, G150503 ', '6', 'Derek Richter', NOW(), NOW(), '4', '2','1'),
-  ('2', 'A02, A03, A13, A17, A20', 'G150969, G150970, G150503, G150405, G150506 ', '6', 'Derek Richter', NOW(), NOW(), '6', '2','2'),
-  ('3', 'F01, F05, F10, F11, F12', 'G150501, G150405, G150968, G150502, G150602 ', '6', 'Louis Leblanc', NOW(), NOW(), '7', '2','3'),
-  ('4', 'P06, P09, P13, P15, P16, P21, P25, P26, P27, P30', 'G150505, G150302, G150606, G150504, G150503, G150505, G150506, G150605, G150970, G150969 ', '10', 'Aleska Rosenstock', NOW(), NOW(), '5', '2','4');
+INSERT INTO `learning_agreements` (`id`, `destination_subjects`, `origin_subjects`, `duration`, `contact_person`, `created`, `modified`,`user_id`, `place_id`) VALUES
+  ('1', 'A01, A08, A12, A17, A18', 'G150501, G150502, G150503, G150504, G150503 ', '6', 'Derek Richter', NOW(), NOW(), '4', '1'),
+  ('2', 'A02, A03, A13, A17, A20', 'G150969, G150970, G150503, G150405, G150506 ', '6', 'Derek Richter', NOW(), NOW(), '6', '2'),
+  ('3', 'F01, F05, F10, F11, F12', 'G150501, G150405, G150968, G150502, G150602 ', '6', 'Louis Leblanc', NOW(), NOW(), '7', '3'),
+  ('4', 'P06, P09, P13, P15, P16, P21, P25, P26, P27, P30', 'G150505, G150302, G150606, G150504, G150503, G150505, G150506, G150605, G150970, G150969 ', '10', 'Aleska Rosenstock', NOW(), NOW(), '5', '4');
 
 -- -----------------------------------------------------
 -- INSERTS `EXTENSION_REQUESTS`
 -- -----------------------------------------------------
 
-INSERT INTO `extension_requests` (`id`, `description`, `months`, `created`, `modified`, `user_id`, `user_coordinador_id`,`place_id`) VALUES
-  ('1', 'Ampliación de estancia', '4', NOW(), NOW(), '4', '2','1'),
-  ('2', 'Ampliación de estancia', '4', NOW(), NOW(), '7', '2','3');
+INSERT INTO `extension_requests` (`id`, `description`, `months`, `created`, `modified`, `user_id`, `place_id`) VALUES
+  ('1', 'Ampliación de estancia', '4', NOW(), NOW(), '4', '1'),
+  ('2', 'Ampliación de estancia', '4', NOW(), NOW(), '7', '3');
 
 -- -----------------------------------------------------
 -- INSERTS `RESIGNATIONS`
 -- -----------------------------------------------------
 
-INSERT INTO `resignations` (`id`, `description`, `created`, `modified`, `user_id`, `user_coordinador_id`,`place_id`) VALUES
-  ('1', 'Renuncia de plaza por motivos personales', NOW(), NOW(), '6', '2','2');
+INSERT INTO `resignations` (`id`, `description`, `created`, `modified`, `user_id`, `place_id`) VALUES
+  ('1', 'Renuncia de plaza por motivos personales', NOW(), NOW(), '6', '2');
 
 
 -- -----------------------------------------------------
@@ -383,29 +340,17 @@ INSERT INTO `school_years` (`id`, `date`, `description`) VALUES
 /* No tiene sentido asociar un document_id...*/
 /*NO SE HACER LOS PLAZOS*/
 
-INSERT INTO `periods` (`id`, `name`, `description`,`type`, `created`, `modified`,`document_id`,`request_id`) VALUES
-  ('1', 'Plazo de solicitud de plaza erasmus', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '1', '1'),
-  ('2', 'Plazo de solicitud de destino erasmus', 'El plazo expirará dentro de 15 días contando a partir del siguiente día laboral tras la publicación', '15 días', NOW(), NOW(), '2', '2'),
-  ('3', 'Plazo de entrega de la aceptación o renuncia de plaza erasmus', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '3', NULL),
-  ('4', 'Plazo de entrega del contrato finaciero', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '4', NULL),
-  ('5', 'Plazo de entrega de la ficha de perceptores', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '5', NULL),
-  ('6', 'Plazo de entrega de la autorización del uso de datos', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '6', NULL),
-  ('7', 'Plazo de entrega del contrato del seguro On Campus', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '7', NULL),
-  ('8', 'Plazo de entrega del contrato de estudios', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '8', NULL),
-  ('9', 'Plazo de entrega del certificado de llegada', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '10', NULL),
-  ('10', 'Plazo de petición de amplicación de estancia', 'El plazo expirará dentro de 6 meses  contando a partir del siguiente día laboral tras la publicación', '6 meses', NOW(), NOW(), '11', '3'),
-  ('11', 'Plazo de modificación del contrato de estudios', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '9', NULL),
-  ('12', 'Plazo de entrega del certificado de fin de estancia', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '13', NULL),
-  ('13', 'Plazo de petición de renuncia de plaza erasmus', 'El plazo expirará dentro de 10 meses contando a partir del siguiente día laboral tras la publicación', '10 meses', NOW(), NOW(), '12', '4');
-
-
--- -----------------------------------------------------
--- INSERTS `REQUESTS`
--- -----------------------------------------------------
-
-INSERT INTO `requests` (`id`, `name`, `description`, `created`, `modified`,`user_id`, `place_id`) VALUES
-
-  ('1', 'Solicitud de plaza erasmus', 'Plaza erasmus', NOW(), NOW(), '4', '1'),
-  ('2', 'Solicitud de destino erasmus', 'Destino erasmus', NOW(), NOW(), '4', '1'),
-  ('3', 'Solicitud de amplicación de estancia', 'Ampliación de estancia',NOW(), NOW(), '4', '1'),
-  ('4', 'Solicitud de renuncia de plaza erasmus', 'Renuncia de plaza',NOW(), NOW(), '4', '6');
+INSERT INTO `periods` (`id`, `name`, `description`,`type`, `created`, `modified`,`document_id`) VALUES
+  ('1', 'Plazo de solicitud de plaza erasmus', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '1'),
+  ('2', 'Plazo de solicitud de destino erasmus', 'El plazo expirará dentro de 15 días contando a partir del siguiente día laboral tras la publicación', '15 días', NOW(), NOW(), '2'),
+  ('3', 'Plazo de entrega de la aceptación o renuncia de plaza erasmus', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '3'),
+  ('4', 'Plazo de entrega del contrato finaciero', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '4'),
+  ('5', 'Plazo de entrega de la ficha de perceptores', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '5'),
+  ('6', 'Plazo de entrega de la autorización del uso de datos', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '6'),
+  ('7', 'Plazo de entrega del contrato del seguro On Campus', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '7'),
+  ('8', 'Plazo de entrega del contrato de estudios', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '8'),
+  ('9', 'Plazo de modificación del contrato de estudios', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '9'),
+  ('10', 'Plazo de entrega del certificado de llegada', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '10'),
+  ('11', 'Plazo de petición de amplicación de estancia', 'El plazo expirará dentro de 6 meses  contando a partir del siguiente día laboral tras la publicación', '6 meses', NOW(), NOW(), '11'),
+  ('12', 'Plazo de petición de renuncia de plaza erasmus', 'El plazo expirará dentro de 10 meses contando a partir del siguiente día laboral tras la publicación', '10 meses', NOW(), NOW(), '12'),
+  ('13', 'Plazo de entrega del certificado de fin de estancia', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '13');
