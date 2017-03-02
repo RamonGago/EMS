@@ -54,7 +54,6 @@ CREATE TABLE IF NOT EXISTS `destinations` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
 -- -----------------------------------------------------
 -- Table PLACES (PLAZAS)
 -- -----------------------------------------------------
@@ -151,11 +150,11 @@ CREATE TABLE IF NOT EXISTS `school_years` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- -----------------------------------------------------
--- Table PERIODS (PLAZOS)
+-- Table DEADLINES (PLAZOS)
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `periods`;
+DROP TABLE IF EXISTS `deadlines`;
 
-CREATE TABLE IF NOT EXISTS `periods` (
+CREATE TABLE IF NOT EXISTS `deadlines` (
     `id` INT UNSIGNED AUTO_INCREMENT,
     `name` VARCHAR(128),
     `description` VARCHAR(128),
@@ -235,7 +234,7 @@ REFERENCES users (id)
 
 /* TABLE PERIODS*/
 
-ALTER TABLE periods
+ALTER TABLE deadlines
    ADD FOREIGN KEY (document_id)
 REFERENCES documents (id)
   ON DELETE CASCADE
@@ -336,11 +335,10 @@ INSERT INTO `school_years` (`id`, `date`, `description`) VALUES
 -- INSERTS `PERIODS`
 -- -----------------------------------------------------
 
-/*Preguntar si en este año la solicitud de plaza incluye la solicitud de destino*/
 /* No tiene sentido asociar un document_id...*/
 /*NO SE HACER LOS PLAZOS*/
 
-INSERT INTO `periods` (`id`, `name`, `description`,`type`, `created`, `modified`,`document_id`) VALUES
+INSERT INTO `deadlines` (`id`, `name`, `description`,`type`, `created`, `modified`,`document_id`) VALUES
   ('1', 'Plazo de solicitud de plaza erasmus', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '1'),
   ('2', 'Plazo de solicitud de destino erasmus', 'El plazo expirará dentro de 15 días contando a partir del siguiente día laboral tras la publicación', '15 días', NOW(), NOW(), '2'),
   ('3', 'Plazo de entrega de la aceptación o renuncia de plaza erasmus', 'El plazo expirará dentro de un mes contando a partir del siguiente día laboral tras la publicación', '1 mes', NOW(), NOW(), '3'),
