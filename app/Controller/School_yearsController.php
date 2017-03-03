@@ -1,11 +1,11 @@
 <?php
 
-class Learning_agreementsController extends AppController {
+class School_yearsController extends AppController {
 
     public $paginate = array(
         'limit' => 25,
         'conditions' => array('status' => '1'),
-        'order' => array('Learning_agreement.id' => 'asc' )
+        'order' => array('School_year.id' => 'asc' )
     );
     public function beforeFilter() {
         parent::beforeFilter();
@@ -30,22 +30,22 @@ class Learning_agreementsController extends AppController {
     public function index() {
         $this->paginate = array(
             'limit' => 10,
-            'order' => array('Learning_agreement.id' => 'asc' )
+            'order' => array('School_year.id' => 'asc' )
         );
-        $learning_agreements = $this->paginate('Learning_agreement');
-        $this->set(compact('learning_agreements'));
+        $school_years = $this->paginate('School_year');
+        $this->set(compact('school_years'));
     }
 
 
     public function add() {
         if ($this->request->is('post')) {
 
-            $this->Learning_agreement->create();
-            if ($this->Learning_agreement->save($this->request->data)) {
-                $this->Session->Flash->success('Nuevo contrato de estudios creado');
+            $this->School_year->create();
+            if ($this->School_year->save($this->request->data)) {
+                $this->Session->Flash->success('El nuevo año académico ha sido creado correctamente');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->Flash->error('Ha habido un error, no se ha podido crear el contrato de estudios');
+                $this->Session->Flash->error('Ha habido un error, no se ha podido crear el año académico');
             }
         }
     }
@@ -54,48 +54,48 @@ class Learning_agreementsController extends AppController {
     public function edit($id = null) {
 
         if (!$id) {
-            $this->Session->Flash->error('Es necesario proveer un ID de contrato de estudios');
+            $this->Session->Flash->error('Es necesario proveer un ID del año académico');
             $this->redirect(array('action'=>'index'));
         }
 
-        $learning_agreement = $this->Learning_agreement->findById($id);
-        if (!$learning_agreement) {
+        $school_year = $this->School_year->findById($id);
+        if (!$school_year) {
             $this->Session->Flash->error('ID inválido');
             $this->redirect(array('action'=>'index'));
         }
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            $this->Learning_agreement->id = $id;
-            if ($this->Learning_agreement->save($this->request->data)) {
-                $this->Session->Flash->success('Contrato de estudios modificado correctamente');
+            $this->School_year->id = $id;
+            if ($this->School_year->save($this->request->data)) {
+                $this->Session->Flash->success('El año académico ha sido modificado correctamente');
                 $this->redirect(array('action' => 'edit', $id));
             }else{
-                $this->Session->Flash->error('Ha habido un error, no se ha podido modificar el contrato de estudios');
+                $this->Session->Flash->error('Ha habido un error, no se ha podido modificar el año académico');
             }
         }
 
         if (!$this->request->data) {
-            $this->request->data = $learning_agreement;
+            $this->request->data = $school_year;
         }
     }
 
     public function delete($id = null) {
 
         if (!$id) {
-            $this->Session->Flash->error('Es necesario proveer un ID de contrato de estudios');
+            $this->Session->Flash->error('Es necesario proveer un ID del año académico');
             $this->redirect(array('action'=>'index'));
         }
 
-        $this->Learning_agreement->id = $id;
-        if (!$this->Learning_agreement->exists()) {
+        $this->School_year->id = $id;
+        if (!$this->School_year->exists()) {
             $this->Session->Flash->error('ID inválido');
             $this->redirect(array('action'=>'index'));
         }
-        if ($this->Learning_agreement->saveField('status', 0)) {
-            $this->Session->Flash->success('Contrato de estudios eliminado correctamente');
+        if ($this->School_year->saveField('status', 0)) {
+            $this->Session->Flash->success('Año académico eliminado correctamente');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->Flash->error('Ha habido un error, no se ha podido eliminar el contrato de estudios');
+        $this->Session->Flash->error('Ha habido un error, no se ha podido eliminar el año académico');
         $this->redirect(array('action' => 'index'));
     }
 

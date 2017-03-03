@@ -1,11 +1,11 @@
 <?php
 
-class Learning_agreementsController extends AppController {
+class Extension_resquestsController extends AppController {
 
     public $paginate = array(
         'limit' => 25,
         'conditions' => array('status' => '1'),
-        'order' => array('Learning_agreement.id' => 'asc' )
+        'order' => array('Extension_resquest.id' => 'asc' )
     );
     public function beforeFilter() {
         parent::beforeFilter();
@@ -30,22 +30,22 @@ class Learning_agreementsController extends AppController {
     public function index() {
         $this->paginate = array(
             'limit' => 10,
-            'order' => array('Learning_agreement.id' => 'asc' )
+            'order' => array('Extension_resquest.id' => 'asc' )
         );
-        $learning_agreements = $this->paginate('Learning_agreement');
-        $this->set(compact('learning_agreements'));
+        $extension_resquests = $this->paginate('Extension_resquest');
+        $this->set(compact('extension_resquests'));
     }
 
 
     public function add() {
         if ($this->request->is('post')) {
 
-            $this->Learning_agreement->create();
-            if ($this->Learning_agreement->save($this->request->data)) {
-                $this->Session->Flash->success('Nuevo contrato de estudios creado');
+            $this->Extension_resquest->create();
+            if ($this->Extension_resquest->save($this->request->data)) {
+                $this->Session->Flash->success('Ampliación de estancia creada correctamente');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->Flash->error('Ha habido un error, no se ha podido crear el contrato de estudios');
+                $this->Session->Flash->error('Ha habido un error, no se ha podido crear la ampliación de estancia');
             }
         }
     }
@@ -54,45 +54,45 @@ class Learning_agreementsController extends AppController {
     public function edit($id = null) {
 
         if (!$id) {
-            $this->Session->Flash->error('Es necesario proveer un ID de contrato de estudios');
+            $this->Session->Flash->error('Es necesario proveer un ID de ampliación de estancia');
             $this->redirect(array('action'=>'index'));
         }
 
-        $learning_agreement = $this->Learning_agreement->findById($id);
-        if (!$learning_agreement) {
+        $extension_resquest = $this->Extension_resquest->findById($id);
+        if (!$extension_resquest) {
             $this->Session->Flash->error('ID inválido');
             $this->redirect(array('action'=>'index'));
         }
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            $this->Learning_agreement->id = $id;
-            if ($this->Learning_agreement->save($this->request->data)) {
-                $this->Session->Flash->success('Contrato de estudios modificado correctamente');
+            $this->Extension_resquest->id = $id;
+            if ($this->Extension_resquest->save($this->request->data)) {
+                $this->Session->Flash->success('Ampliación de estancia modificada correctamente');
                 $this->redirect(array('action' => 'edit', $id));
             }else{
-                $this->Session->Flash->error('Ha habido un error, no se ha podido modificar el contrato de estudios');
+                $this->Session->Flash->error('Ha habido un error, no se ha podido modificar la ampliación de estancia');
             }
         }
 
         if (!$this->request->data) {
-            $this->request->data = $learning_agreement;
+            $this->request->data = $extension_resquest;
         }
     }
 
     public function delete($id = null) {
 
         if (!$id) {
-            $this->Session->Flash->error('Es necesario proveer un ID de contrato de estudios');
+            $this->Session->Flash->error('Es necesario proveer un ID de ampliación de estancia');
             $this->redirect(array('action'=>'index'));
         }
 
-        $this->Learning_agreement->id = $id;
-        if (!$this->Learning_agreement->exists()) {
+        $this->Extension_resquest->id = $id;
+        if (!$this->Extension_resquest->exists()) {
             $this->Session->Flash->error('ID inválido');
             $this->redirect(array('action'=>'index'));
         }
-        if ($this->Learning_agreement->saveField('status', 0)) {
-            $this->Session->Flash->success('Contrato de estudios eliminado correctamente');
+        if ($this->Extension_resquest->saveField('status', 0)) {
+            $this->Session->Flash->success('Ampliación de estancia eliminada correctamente');
             $this->redirect(array('action' => 'index'));
         }
         $this->Session->Flash->error('Ha habido un error, no se ha podido eliminar el contrato de estudios');

@@ -1,11 +1,11 @@
 <?php
 
-class Learning_agreementsController extends AppController {
+class DocumentsController extends AppController {
 
     public $paginate = array(
         'limit' => 25,
         'conditions' => array('status' => '1'),
-        'order' => array('Learning_agreement.id' => 'asc' )
+        'order' => array('Document.id' => 'asc' )
     );
     public function beforeFilter() {
         parent::beforeFilter();
@@ -30,22 +30,22 @@ class Learning_agreementsController extends AppController {
     public function index() {
         $this->paginate = array(
             'limit' => 10,
-            'order' => array('Learning_agreement.id' => 'asc' )
+            'order' => array('Document.id' => 'asc' )
         );
-        $learning_agreements = $this->paginate('Learning_agreement');
-        $this->set(compact('learning_agreements'));
+        $documents = $this->paginate('Document');
+        $this->set(compact('documents'));
     }
 
 
     public function add() {
         if ($this->request->is('post')) {
 
-            $this->Learning_agreement->create();
-            if ($this->Learning_agreement->save($this->request->data)) {
-                $this->Session->Flash->success('Nuevo contrato de estudios creado');
+            $this->Document->create();
+            if ($this->Document->save($this->request->data)) {
+                $this->Session->Flash->success('Nuevo documento creado');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->Flash->error('Ha habido un error, no se ha podido crear el contrato de estudios');
+                $this->Session->Flash->error('Ha habido un error, no se ha podido crear el documento');
             }
         }
     }
@@ -54,48 +54,48 @@ class Learning_agreementsController extends AppController {
     public function edit($id = null) {
 
         if (!$id) {
-            $this->Session->Flash->error('Es necesario proveer un ID de contrato de estudios');
+            $this->Session->Flash->error('Es necesario proveer un ID de documento');
             $this->redirect(array('action'=>'index'));
         }
 
-        $learning_agreement = $this->Learning_agreement->findById($id);
-        if (!$learning_agreement) {
+        $document = $this->Document->findById($id);
+        if (!$document) {
             $this->Session->Flash->error('ID inválido');
             $this->redirect(array('action'=>'index'));
         }
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            $this->Learning_agreement->id = $id;
-            if ($this->Learning_agreement->save($this->request->data)) {
-                $this->Session->Flash->success('Contrato de estudios modificado correctamente');
+            $this->Document->id = $id;
+            if ($this->Document->save($this->request->data)) {
+                $this->Session->Flash->success('Documento modificado correctamente');
                 $this->redirect(array('action' => 'edit', $id));
             }else{
-                $this->Session->Flash->error('Ha habido un error, no se ha podido modificar el contrato de estudios');
+                $this->Session->Flash->error('Ha habido un error, no se ha podido modificar el documento');
             }
         }
 
         if (!$this->request->data) {
-            $this->request->data = $learning_agreement;
+            $this->request->data = $document;
         }
     }
 
     public function delete($id = null) {
 
         if (!$id) {
-            $this->Session->Flash->error('Es necesario proveer un ID de contrato de estudios');
+            $this->Session->Flash->error('Es necesario proveer un ID de documento');
             $this->redirect(array('action'=>'index'));
         }
 
-        $this->Learning_agreement->id = $id;
-        if (!$this->Learning_agreement->exists()) {
+        $this->Document->id = $id;
+        if (!$this->Document->exists()) {
             $this->Session->Flash->error('ID inválido');
             $this->redirect(array('action'=>'index'));
         }
-        if ($this->Learning_agreement->saveField('status', 0)) {
-            $this->Session->Flash->success('Contrato de estudios eliminado correctamente');
+        if ($this->Document->saveField('status', 0)) {
+            $this->Session->Flash->success('Documento eliminado correctamente');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->Flash->error('Ha habido un error, no se ha podido eliminar el contrato de estudios');
+        $this->Session->Flash->error('Ha habido un error, no se ha podido eliminar el documento');
         $this->redirect(array('action' => 'index'));
     }
 

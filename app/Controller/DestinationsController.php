@@ -1,11 +1,11 @@
 <?php
 
-class Learning_agreementsController extends AppController {
+class DestinationsController extends AppController {
 
     public $paginate = array(
         'limit' => 25,
         'conditions' => array('status' => '1'),
-        'order' => array('Learning_agreement.id' => 'asc' )
+        'order' => array('Destination.id' => 'asc' )
     );
     public function beforeFilter() {
         parent::beforeFilter();
@@ -30,22 +30,22 @@ class Learning_agreementsController extends AppController {
     public function index() {
         $this->paginate = array(
             'limit' => 10,
-            'order' => array('Learning_agreement.id' => 'asc' )
+            'order' => array('Destination.id' => 'asc' )
         );
-        $learning_agreements = $this->paginate('Learning_agreement');
-        $this->set(compact('learning_agreements'));
+        $destinations = $this->paginate('Destination');
+        $this->set(compact('destinations'));
     }
 
 
     public function add() {
         if ($this->request->is('post')) {
 
-            $this->Learning_agreement->create();
-            if ($this->Learning_agreement->save($this->request->data)) {
-                $this->Session->Flash->success('Nuevo contrato de estudios creado');
+            $this->Destination->create();
+            if ($this->Destination->save($this->request->data)) {
+                $this->Session->Flash->success('El nuevo destino erasmus ha sido creado correctamente');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->Flash->error('Ha habido un error, no se ha podido crear el contrato de estudios');
+                $this->Session->Flash->error('Ha habido un error, no se ha podido crear el destino erasmus');
             }
         }
     }
@@ -54,48 +54,48 @@ class Learning_agreementsController extends AppController {
     public function edit($id = null) {
 
         if (!$id) {
-            $this->Session->Flash->error('Es necesario proveer un ID de contrato de estudios');
+            $this->Session->Flash->error('Es necesario proveer un ID de destino erasmus');
             $this->redirect(array('action'=>'index'));
         }
 
-        $learning_agreement = $this->Learning_agreement->findById($id);
-        if (!$learning_agreement) {
+        $destination = $this->Destination->findById($id);
+        if (!destination) {
             $this->Session->Flash->error('ID inválido');
             $this->redirect(array('action'=>'index'));
         }
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            $this->Learning_agreement->id = $id;
-            if ($this->Learning_agreement->save($this->request->data)) {
-                $this->Session->Flash->success('Contrato de estudios modificado correctamente');
+            $this->Destination->id = $id;
+            if ($this->Destination->save($this->request->data)) {
+                $this->Session->Flash->success('El destino erasmus se ha modificado correctamente');
                 $this->redirect(array('action' => 'edit', $id));
             }else{
-                $this->Session->Flash->error('Ha habido un error, no se ha podido modificar el contrato de estudios');
+                $this->Session->Flash->error('Ha habido un error, no se ha podido modificar el destino erasmus');
             }
         }
 
         if (!$this->request->data) {
-            $this->request->data = $learning_agreement;
+            $this->request->data = $destination;
         }
     }
 
     public function delete($id = null) {
 
         if (!$id) {
-            $this->Session->Flash->error('Es necesario proveer un ID de contrato de estudios');
+            $this->Session->Flash->error('Es necesario proveer un ID de destino erasmus');
             $this->redirect(array('action'=>'index'));
         }
 
-        $this->Learning_agreement->id = $id;
-        if (!$this->Learning_agreement->exists()) {
+        $this->Destination->id = $id;
+        if (!$this->Destination->exists()) {
             $this->Session->Flash->error('ID inválido');
             $this->redirect(array('action'=>'index'));
         }
-        if ($this->Learning_agreement->saveField('status', 0)) {
-            $this->Session->Flash->success('Contrato de estudios eliminado correctamente');
+        if ($this->Destination->saveField('status', 0)) {
+            $this->Session->Flash->success('El destino erasmus ha sido eliminado correctamente');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->Flash->error('Ha habido un error, no se ha podido eliminar el contrato de estudios');
+        $this->Session->Flash->error('Ha habido un error, no se ha podido eliminar el destino erasmus');
         $this->redirect(array('action' => 'index'));
     }
 

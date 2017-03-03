@@ -17,11 +17,14 @@ class UsersController extends AppController {
         //logout y la correspondiente a usuario (página solo para ellos)
         if($this->Auth->user('role') === 'Admin_ORI') {
             $this->Auth->allow();
+        } elseif ($this->Auth->user('role') === 'Admin_SEC') {
+            $this->Auth->allow('logout', 'Admin_SEC');
+        } elseif ($this->Auth->user('role') === 'Coodinador') {
+            $this->Auth->allow('logout', 'Coordinador');
         } elseif ($this->Auth->user('role') === 'Alumno') {
             $this->Auth->allow('logout', 'Alumno');
         }
     }
-
 
 
     public function login() {
@@ -34,10 +37,10 @@ class UsersController extends AppController {
         // if we get the post information, try to authenticate
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
-                $this->Session->setFlash(__('Bienvenido, '. $this->Auth->user('username')));
+                $this->Session->Flash->success('Bienvenido, '. $this->Auth->user('username'));
                 $this->redirect($this->Auth->redirectUrl());
             } else {
-                $this->Session->setFlash(__('Nombre de usuario o contraseña incorrectos'));
+                $this->Session->Flash->error('Nombre de usuario o contraseña incorrectos');
             }
         }
     }
@@ -56,6 +59,28 @@ class UsersController extends AppController {
     }
 
     //Acción para redirigir a los usuarios con rol alumno
+    public function admin_sec() {
+        $this->paginate = array(
+            'limit' => 10,
+            'order' => array('User.username' => 'asc' )
+        );
+        $users = $this->paginate('User');
+        $this->set(compact('users'));
+        $this->render('/Users/admin_sec');
+    }
+
+    //Acción para redirigir a los usuarios con rol alumno
+    public function coordinador() {
+        $this->paginate = array(
+            'limit' => 10,
+            'order' => array('User.username' => 'asc' )
+        );
+        $users = $this->paginate('User');
+        $this->set(compact('users'));
+        $this->render('/Users/coordinador');
+    }
+
+    //Acción para redirigir a los usuarios con rol alumno
     public function alumno() {
         $this->paginate = array(
             'limit' => 10,
@@ -66,16 +91,15 @@ class UsersController extends AppController {
         $this->render('/Users/alumno');
     }
 
-
     public function add() {
         if ($this->request->is('post')) {
 
             $this->User->create();
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('Nuevo usuario creado'));
+                $this->Session->Flash->success('Nuevo usuario creado');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('Hubo un error y no se pudo crear al usuario'));
+                $this->Session->Flash->error('Hubo un error y no se pudo crear al usuario');
             }
         }
     }
@@ -85,10 +109,10 @@ class UsersController extends AppController {
 
             $this->User->create();
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('Nuevo usuario creado'));
+                $this->Session->Flash->success('Nuevo usuario creado');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('Hubo un error y no se pudo crear al usuario'));
+                $this->Session->Flash->error('Hubo un error y no se pudo crear al usuario');
             }
         }
     }
@@ -98,10 +122,10 @@ class UsersController extends AppController {
 
             $this->User->create();
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('Nuevo usuario creado'));
+                $this->Session->Flash->success('Nuevo usuario creado');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('Hubo un error y no se pudo crear al usuario'));
+                $this->Session->Flash->error('Hubo un error y no se pudo crear al usuario');
             }
         }
     }
@@ -109,23 +133,23 @@ class UsersController extends AppController {
     public function edit($id = null) {
 
         if (!$id) {
-            $this->Session->setFlash('Es necesario proveer un ID de usuario');
+            $this->Session->Flash->error('Es necesario proveer un ID de usuario');
             $this->redirect(array('action'=>'index'));
         }
 
         $user = $this->User->findById($id);
         if (!$user) {
-            $this->Session->setFlash('ID inválido');
+            $this->Session->Flash->error('ID inválido');
             $this->redirect(array('action'=>'index'));
         }
 
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->User->id = $id;
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('Usuario modificado'));
+                $this->Session->Flash->success('Usuario modificado');
                 $this->redirect(array('action' => 'edit', $id));
             }else{
-                $this->Session->setFlash(__('Hubo un error y no se pudo modificar al usuario'));
+                $this->Session->Flash->error('Hubo un error y no se pudo modificar al usuario');
             }
         }
 
@@ -137,40 +161,40 @@ class UsersController extends AppController {
     public function delete($id = null) {
 
         if (!$id) {
-            $this->Session->setFlash('Es necesario proveer un ID de usuario');
+            $this->Session->Flash->error('Es necesario proveer un ID de usuario');
             $this->redirect(array('action'=>'index'));
         }
 
         $this->User->id = $id;
         if (!$this->User->exists()) {
-            $this->Session->setFlash('ID inválido');
+            $this->Session->Flash->error('ID inválido');
             $this->redirect(array('action'=>'index'));
         }
         if ($this->User->saveField('status', 0)) {
-            $this->Session->setFlash(__('Usuario eliminado'));
+            $this->Session->Flash->success('Usuario eliminado');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Hubo un error y no se pudo eliminar al usuario'));
+        $this->Session->Flash->error('Hubo un error y no se pudo eliminar al usuario');
         $this->redirect(array('action' => 'index'));
     }
 
     public function activate($id = null) {
 
         if (!$id) {
-            $this->Session->setFlash('Es necesario proveer un ID de usuario');
+            $this->Session->Flash->error('Es necesario proveer un ID de usuario');
             $this->redirect(array('action'=>'index'));
         }
 
         $this->User->id = $id;
         if (!$this->User->exists()) {
-            $this->Session->setFlash('ID inválido');
+            $this->Session->Flash->error('ID inválido');
             $this->redirect(array('action'=>'index'));
         }
         if ($this->User->saveField('status', 1)) {
-            $this->Session->setFlash(__('Usuario reactivado'));
+            $this->Session->Flash->success('Usuario reactivado');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Hubo un error y no se pudo reactivar al usuario'));
+        $this->Session->Flash->error('Hubo un error y no se pudo reactivar al usuario');
         $this->redirect(array('action' => 'index'));
     }
 

@@ -1,11 +1,11 @@
 <?php
 
-class Learning_agreementsController extends AppController {
+class DeadlinesController extends AppController {
 
     public $paginate = array(
         'limit' => 25,
         'conditions' => array('status' => '1'),
-        'order' => array('Learning_agreement.id' => 'asc' )
+        'order' => array('Deadline.id' => 'asc' )
     );
     public function beforeFilter() {
         parent::beforeFilter();
@@ -30,22 +30,22 @@ class Learning_agreementsController extends AppController {
     public function index() {
         $this->paginate = array(
             'limit' => 10,
-            'order' => array('Learning_agreement.id' => 'asc' )
+            'order' => array('Deadline.id' => 'asc' )
         );
-        $learning_agreements = $this->paginate('Learning_agreement');
-        $this->set(compact('learning_agreements'));
+        $deadlines = $this->paginate('Deadline');
+        $this->set(compact('deadlines'));
     }
 
 
     public function add() {
         if ($this->request->is('post')) {
 
-            $this->Learning_agreement->create();
-            if ($this->Learning_agreement->save($this->request->data)) {
-                $this->Session->Flash->success('Nuevo contrato de estudios creado');
+            $this->Deadline->create();
+            if ($this->Deadline->save($this->request->data)) {
+                $this->Session->Flash->success('Nuevo plazo de entrega creado');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->Flash->error('Ha habido un error, no se ha podido crear el contrato de estudios');
+                $this->Session->Flash->error('Ha habido un error, no se ha podido crear el plazo de entrega');
             }
         }
     }
@@ -54,48 +54,48 @@ class Learning_agreementsController extends AppController {
     public function edit($id = null) {
 
         if (!$id) {
-            $this->Session->Flash->error('Es necesario proveer un ID de contrato de estudios');
+            $this->Session->Flash->error('Es necesario proveer un ID de plazo de entrega');
             $this->redirect(array('action'=>'index'));
         }
 
-        $learning_agreement = $this->Learning_agreement->findById($id);
-        if (!$learning_agreement) {
+        $deadline = $this->Deadline->findById($id);
+        if (!$deadline) {
             $this->Session->Flash->error('ID inválido');
             $this->redirect(array('action'=>'index'));
         }
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            $this->Learning_agreement->id = $id;
-            if ($this->Learning_agreement->save($this->request->data)) {
-                $this->Session->Flash->success('Contrato de estudios modificado correctamente');
+            $this->Deadline->id = $id;
+            if ($this->Deadline->save($this->request->data)) {
+                $this->Session->Flash->success('Plazo de entrega modificado correctamente');
                 $this->redirect(array('action' => 'edit', $id));
             }else{
-                $this->Session->Flash->error('Ha habido un error, no se ha podido modificar el contrato de estudios');
+                $this->Session->Flash->error('Ha habido un error, no se ha podido modificar el plazo de entrega');
             }
         }
 
         if (!$this->request->data) {
-            $this->request->data = $learning_agreement;
+            $this->request->data = $deadline;
         }
     }
 
     public function delete($id = null) {
 
         if (!$id) {
-            $this->Session->Flash->error('Es necesario proveer un ID de contrato de estudios');
+            $this->Session->Flash->error('Es necesario proveer un ID de plazo de entrega');
             $this->redirect(array('action'=>'index'));
         }
 
-        $this->Learning_agreement->id = $id;
-        if (!$this->Learning_agreement->exists()) {
+        $this->Deadline->id = $id;
+        if (!$this->Deadline->exists()) {
             $this->Session->Flash->error('ID inválido');
             $this->redirect(array('action'=>'index'));
         }
-        if ($this->Learning_agreement->saveField('status', 0)) {
-            $this->Session->Flash->success('Contrato de estudios eliminado correctamente');
+        if ($this->Deadline->saveField('status', 0)) {
+            $this->Session->Flash->success('Plazo de entrega eliminado correctamente');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->Flash->error('Ha habido un error, no se ha podido eliminar el contrato de estudios');
+        $this->Session->Flash->error('Ha habido un error, no se ha podido eliminar el plazo de entrega');
         $this->redirect(array('action' => 'index'));
     }
 
