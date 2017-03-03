@@ -1,5 +1,5 @@
 <?php
-$emsDescription = __d('cake_dev', 'EMS: Erasmus Management System');
+$emsDescription = __d('cake_dev', 'Erasmus Management System');
 ?>
 
 <!DOCTYPE html>
@@ -25,18 +25,19 @@ $emsDescription = __d('cake_dev', 'EMS: Erasmus Management System');
 
 	<div id="container">
 		<div id="header">
-			<h1></h1>
+            <?php echo $this->element('navbar'); ?>
+
+            <?php echo $this->element('sidebar'); ?>
+
 		</div>
 		<div id="content">
             <?php echo $this->Flash->render(); ?>
 
 			<?php echo $this->fetch('content'); ?>
 		</div>
-		<div class="footer">
-            <div class="col-md-10 col-md-offset-1 text-center">
-                <h6 style="font-size:14px;font-weight:100;color: #fff;"><a style="color: #fff;" target="_blank">Erasmus Management System  Copyright &copy; 2017 Todos los derechos reservados</a></h6>
-            </div>
-		</div>
+		<div id="footer">
+            <?php echo $this->element('footer'); ?>
+        </div>
 	</div>
 </body>
 </html>
