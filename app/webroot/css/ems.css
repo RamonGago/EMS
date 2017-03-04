@@ -374,7 +374,7 @@ ul.alert-dropdown {
         border: none;
         border-radius: 0;
         overflow-y: auto;
-        background-color: #defbc2;
+        background-color: #04B172;
         bottom: 0;
         overflow-x: hidden;
         padding-bottom: 40px;
@@ -382,12 +382,13 @@ ul.alert-dropdown {
 
     .side-nav>li>a {
         width: 225px;
+        color: #fff;
     }
 
     .side-nav li a:hover,
     .side-nav li a:focus {
         outline: none;
-        background-color: #000 !important;
+        background-color: #222 !important;
     }
 }
 
@@ -408,7 +409,7 @@ ul.alert-dropdown {
     display: block;
     padding: 10px 15px 10px 38px;
     text-decoration: none;
-    text-decoration-color: #fff;
+    color: #fff;
 }
 
 /*hover nav. izquierda*/
@@ -419,9 +420,10 @@ ul.alert-dropdown {
 /* Flot Chart Containers */
 
 .container-fluid {
-    width: 60%;
+    width: 82%;
     height: 100%;
     float: right;
+    margin-top: 40px;
 }
 
 
