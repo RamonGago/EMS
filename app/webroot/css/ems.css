@@ -365,11 +365,7 @@ ul.alert-dropdown {
         border: none;
         border-radius: 0;
         overflow-y: auto;
-<<<<<<< HEAD
         background-color: #04B172;
-=======
-        background-color: #5DBCD2;
->>>>>>> parent of 338a4f2... Work1
         bottom: 0;
         overflow-x: hidden;
         padding-bottom: 40px;
@@ -404,11 +400,7 @@ ul.alert-dropdown {
     display: block;
     padding: 10px 15px 10px 38px;
     text-decoration: none;
-<<<<<<< HEAD
     color: #fff;
-=======
-    text-color: #333;
->>>>>>> parent of 338a4f2... Work1
 }
 
 /*hover nav. izquierda*/
@@ -418,17 +410,14 @@ ul.alert-dropdown {
 
 /* Flot Chart Containers */
 
-<<<<<<< HEAD
 .container-fluid {
-    width: 82%;
+    width: 60%;
     height: 100%;
     float: right;
-    margin-top: 40px;
 }
 
 
-=======
->>>>>>> parent of 338a4f2... Work1
+
 .flot-chart {
     display: block;
     height: 400px;
