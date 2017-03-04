@@ -178,6 +178,18 @@ class User extends AppModel {
         'foreignKey'=> 'user_id',
         'conditions'=>'',
         'depend' => true //elimina todos los documentos relacionados con el usuario si lo llegamos a eliminar
+    ),
+    'School_years'=> array(
+            'className'=>'School_years'
+    ),
+    'Destinations'=> array(
+            'className'=>'Destinations'
+    ),
+    'Places'=> array(
+            'className'=>'Places'
+    ),
+    'Deadlines'=> array(
+            'className'=>'Deadlines'
     )
     );
 

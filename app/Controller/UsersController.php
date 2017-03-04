@@ -58,7 +58,7 @@ class UsersController extends AppController {
         $this->set(compact('users'));
     }
 
-    //Acción para redirigir a los usuarios con rol admin_sec
+    //Acción para redirigir a los usuarios con rol alumno
     public function admin_sec() {
         $this->paginate = array(
             'limit' => 10,
@@ -69,7 +69,7 @@ class UsersController extends AppController {
         $this->render('/Users/admin_sec');
     }
 
-    //Acción para redirigir a los usuarios con rol coordinador
+    //Acción para redirigir a los usuarios con rol alumno
     public function coordinador() {
         $this->paginate = array(
             'limit' => 10,
