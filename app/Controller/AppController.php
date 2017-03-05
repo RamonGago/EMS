@@ -33,11 +33,8 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-    public $helpers = array(
-        'Html',
-        'Form'
-    );
-
+    // added the debug toolkit
+    // sessions support
     // authorization for login and logut redirect
     public $components = array(
         'Session',
@@ -52,8 +49,6 @@ class AppController extends Controller {
     // only allow the login controllers only
     public function beforeFilter() {
         $this->Auth->allow('login');
-        $this->set('current_user', $this->Auth->user());
-        //var_dump($this->Auth->user());
     }
 
     public function isAuthorized($user) {
@@ -64,14 +59,12 @@ class AppController extends Controller {
             return true;
         }
         elseif ($user['status'] == 1){
-            $this->Session->Flash->success('Bienvenido, '. $this->Auth->user('username'));
+            $this->Session->setFlash('Bienvenido, '. $this->Auth->user('username'));
             $this->redirect('Alumno');
             return true;
         }
         //Por defecto se deniega el acceso
         return false;
     }
-
-
 
 }
