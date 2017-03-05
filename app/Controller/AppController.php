@@ -39,7 +39,7 @@ class AppController extends Controller {
     public $components = array(
         'Session',
         'Auth' => array(
-            'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
+            'loginRedirect' => array('controller' => 'users', 'action' => 'alumno'),
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
             'authError' => 'Debes estar logueado para continuar',
             'loginError' => 'Nombre de usuario o contraseña incorrectos',
@@ -66,5 +66,6 @@ class AppController extends Controller {
         //Por defecto se deniega el acceso
         return false;
     }
+
 
 }
