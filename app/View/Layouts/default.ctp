@@ -13,8 +13,8 @@ $emsDescription = __d('cake_dev', 'Erasmus Management System');
 	<?php
 		echo $this->Html->meta('icon');
 
-		echo $this->Html->css(array('bootstrap.min.css','bootstrap-theme.css', 'font-awesome.css', 'font-awesome.min.css', 'form-elements.css', 'dataTables.bootstrap.css', 'dataTables.responsive.css', 'metisMenu.min.css','ems.css'));
-        echo $this->Html->script(array('jquery.min', 'jquery','jquery.flot','jquery.flot.pie','jquery.flot.resize','jquery.flot.tooltip.min','jquery.min', 'flot.data','excanvas.min','morris','morris.min', 'morris.data','holder.min', 'metisMenu.min', 'dataTables.bootstrap', 'dataTables.bootstrap.min','dataTables.responsive', 'npm', 'raphael.min', 'bootstrap', 'bootstrap.min', 'ems'));
+		echo $this->Html->css(array('bootstrap.min.css','bootstrap-theme.css', 'font-awesome.css', 'font-awesome.min.css', 'form-elements.css', 'dataTables.bootstrap.css', 'dataTables.responsive.css', 'ems.css'));
+        echo $this->Html->script(array('bootstrap', 'jquery.min', 'bootstrap.min', 'jquery', 'dataTables.bootstrap', 'dataTables.bootstrap.min','dataTables.responsive', 'ems', 'metisMenu.min'));
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -25,9 +25,8 @@ $emsDescription = __d('cake_dev', 'Erasmus Management System');
 
 	<div id="container">
 		<div id="header">
-            <?php echo $this->element('navbar'); ?>
 
-            <?php echo $this->element('sidebar'); ?>
+            <?php echo $this->element('navbar'); ?>
 
 		</div>
 		<div id="content">
