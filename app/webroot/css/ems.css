@@ -309,7 +309,7 @@ body {
 
 .footer{
     position: absolute;
-    background-color: #43AA88;
+    background-color: #054435;
     right: 0;
     bottom: 0;
     left: 0;
@@ -356,7 +356,6 @@ body {
     background-color: #43AA88;
     color: #054435;
 }
-
 
 .top-nav>.open>a {
     color: #43AA88;
@@ -471,10 +470,12 @@ body {
     color: #ffffff;
 }
 
-/* COLOR NAVBAR */
+/* ---------------COLOR NAVBAR---------------------- */
+
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
     background-color: #054435;
     border-radius: 0;
+    border-color: #fff;
 }
 
 .navbar .nav > li > a > .label {

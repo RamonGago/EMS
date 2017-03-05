@@ -30,32 +30,34 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <li>
-                    <a href="#" data-toggle="collapse" data-target="#submenu-1"><i class="fa fa-2x fa-home"></i> &nbsp Inicio<i class="fa fa-fw fa-angle-down pull-right"></i></a>
+                    <a href="index"><i class="fa fa-2x fa-home"></i> &nbsp INICIO</a>
+                </li>
+                <li>
+                    <a href="#" data-toggle="collapse" data-target="#submenu-1"><i class="fa fa-2x fa-universal-access"></i> &nbsp  PLAZA ERASMUS <i class="fa fa-fw fa-angle-down pull-right"></i></a>
                     <ul id="submenu-1" class="collapse">
-                        <li><a href="#"><i class="fa fa-angle-double-right"></i> &nbsp SUBMENU 1.1</a></li>
-                        <li><a href="#"><i class="fa fa-angle-double-right"></i> &nbsp SUBMENU 1.2</a></li>
-                        <li><a href="#"><i class="fa fa-angle-double-right"></i> &nbsp SUBMENU 1.3</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-map-marker"></i> &nbsp DESTINOS ERASMUS</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-exchange"></i> &nbsp MI PLAZA</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-2x fa-globe"></i> &nbsp  Gestionar plaza <i class="fa fa-fw fa-angle-down pull-right"></i></a>
+                    <a href="#" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-2x fa-folder-open-o"></i> &nbsp DOCUMENTACIÓN<i class="fa fa-fw fa-angle-down pull-right"></i></a>
                     <ul id="submenu-2" class="collapse">
-                        <li><a href="#"><i class="fa fa-angle-double-right"></i> &nbsp Solicitar plaza</a></li>
-                        <li><a href="#"><i class="fa fa-angle-double-right"></i> &nbsp Ver destinos erasmus</a></li>
-                        <li><a href="#"><i class="fa fa-angle-double-right"></i> &nbsp +info</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-upload"></i> &nbsp ENVIADA</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-history"></i> &nbsp PENDIENTE</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-times"></i> &nbsp RECHAZADA</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-check-square-o"></i> &nbsp VALIDADA</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="documentation_send"><i class="fa fa-2x fa-mail-forward"></i> &nbsp Enviar documentación</a>
+                    <a href="learning_agreement"><i class="fa fa-2x fa-file-text-o"></i> &nbsp CONTRATO DE ESTUDIOS</a>
                 </li>
                 <li>
-                    <a href="learning_agreement"><i class="fa fa-2x fa-file-text-o"></i> &nbsp Contrato de estudios</a>
-                </li>
-                <li>
-                    <a href="extension_request"><i class="fa fa-2x fa-plus"></i> &nbsp Ampliación de estancia</a>
-                </li>
-                <li>
-                    <a href="resignation"><i class="fa fa-2x fa-remove"></i> &nbsp Renuncia de plaza</a>
+                    <a href="#" data-toggle="collapse" data-target="#submenu-3"><i class="fa fa-2x fa-mail-forward"></i> &nbsp SOLICITUDES<i class="fa fa-fw fa-angle-down pull-right"></i></a>
+                    <ul id="submenu-3" class="collapse">
+                        <li><a href="#"><i class="fa fa-fw fa-edit"></i> &nbsp PLAZA ERASMUS</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-plus"></i> &nbsp AMPLIACION DE ESTANCIA</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-ban"></i> &nbsp RENUNCIA DE PLAZA</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
