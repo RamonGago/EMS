@@ -18,7 +18,8 @@ label {
 }
 .panel-login {
     border: none;
-    background-color: #43AA88;
+    background-color: #054435;
+   /* background-color: #43AA88;*/
     color: #fff;
     opacity: 0.8;
     margin-top: -50px;
@@ -317,6 +318,7 @@ body {
     color: #fff;
     text-align: center;
     font-size: 15px;
+    z-index: 3;
 }
 
 /* Top Navigation */
@@ -394,11 +396,13 @@ body {
 
 .top-nav > .open > .dropdown-menu > li > a:hover {
     background-color: #054435;
+    color: #054435;
     white-space: normal;
 }
 
 .top-nav > .open > .dropdown-menu > li > a:focus {
     background-color: #054435;
+    color: #054435;
     white-space: normal;
 }
 
@@ -499,7 +503,7 @@ body {
 }
 
 .navbar-brand {
-    padding: 5px 15px;
+    padding: 5px 10px;
 }
 
 ul.message-dropdown {

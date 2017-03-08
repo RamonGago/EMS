@@ -22,12 +22,13 @@ $emsDescription = __d('cake_dev', 'Erasmus Management System');
 	?>
 </head>
 <body>
-
+    <!--<img src=" >?= $this->Html->url('/img/erasmus.png') ?>"> -->
 	<div id="container">
 		<div id="header">
 
 		</div>
 		<div id="content">
+
             <?php echo $this->Flash->render(); ?>
 
 			<?php echo $this->fetch('content'); ?>
