@@ -26,7 +26,7 @@ $emsDescription = __d('cake_dev', 'Erasmus Management System');
 	<div id="container">
 		<div id="header">
 
-            <?php echo $this->element('navbar_admin_ori'); ?>
+            <?php echo $this->element('navbar'); ?>
 
 		</div>
 		<div id="content">

@@ -32,14 +32,14 @@ class UsersController extends AppController {
         $this->layout = 'custom';
         //if already logged-in, redirect
         if($this->Session->check('Auth.User')){
-            $this->redirect(array('controller'=>'users','action'=>'index'));
+            $this->redirect(array('controller'=>'users','action'=>'alumno'));
         }
 
         // if we get the post information, try to authenticate
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
-               // $this->Session->Flash->success('Bienvenido, '. $this->Auth->user('username'));
-                $this->redirect(array('controller'=>'users','action'=>'alumno'));
+                $this->Session->Flash->success('Bienvenido, '. $this->Auth->user('username'));
+                $this->redirect($this->Auth->redirectUrl());
             } else {
                 $this->Session->Flash->error('Nombre de usuario o contraseña incorrectos');
             }
